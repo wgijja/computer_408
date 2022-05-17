@@ -13,9 +13,14 @@ public class SingleLinkedListDemo {
         Node two = new Node(2, "狗", "阿狗");
         Node three = new Node(3, "猪", "阿猪");
         SingleLinkedList singleLinkedList = new SingleLinkedList();
-        singleLinkedList.add(one);
-        singleLinkedList.add(three);
-        singleLinkedList.add(two);
+        //无序
+        //singleLinkedList.add(one);
+        //singleLinkedList.add(three);
+        //singleLinkedList.add(two);
+        //求序
+        singleLinkedList.addOrderly(three);
+        singleLinkedList.addOrderly(two);
+        singleLinkedList.addOrderly(one);
         singleLinkedList.show();
     }
 }
@@ -41,6 +46,29 @@ class SingleLinkedList {
                 temp = temp.next;
             }
         }
+    }
+
+    /**
+     * 顺序增加
+     *
+     * @param node
+     */
+    public void addOrderly(Node node) {
+        //还是一样的，头节点不能动，所以需要一个辅助指针
+        Node temp = head;
+        //循环并判断
+        while (true) {
+            if (temp.next == null) {
+                break;
+            }
+            if (temp.next.num > node.num) {
+                break;
+            }
+            temp = temp.next;
+        }
+        node.next = temp.next;
+        temp.next = node;
+
     }
 
     /**
