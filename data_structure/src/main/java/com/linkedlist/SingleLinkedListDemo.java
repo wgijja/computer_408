@@ -21,6 +21,7 @@ public class SingleLinkedListDemo {
         singleLinkedList.addOrderly(three);
         singleLinkedList.addOrderly(two);
         singleLinkedList.addOrderly(one);
+        singleLinkedList.addOrderly(one);
         singleLinkedList.show();
     }
 }
@@ -56,18 +57,26 @@ class SingleLinkedList {
     public void addOrderly(Node node) {
         //还是一样的，头节点不能动，所以需要一个辅助指针
         Node temp = head;
+        //定义一个标识，判断节点是否存在
+        boolean flag = false;
         //循环并判断
         while (true) {
             if (temp.next == null) {
                 break;
-            }
-            if (temp.next.num > node.num) {
+            } else if (temp.next.num > node.num) {
+                break;
+            } else if (temp.next.num == node.num) {
+                flag = true;
                 break;
             }
             temp = temp.next;
         }
-        node.next = temp.next;
-        temp.next = node;
+        if (flag) {
+            System.out.printf("准备插入的数据的编号 %d 已经存在，不能插入\n", node.num);
+        } else {
+            node.next = temp.next;
+            temp.next = node;
+        }
 
     }
 
