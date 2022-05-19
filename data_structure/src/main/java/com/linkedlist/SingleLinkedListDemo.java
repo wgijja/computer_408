@@ -23,6 +23,13 @@ public class SingleLinkedListDemo {
         singleLinkedList.addOrderly(one);
         singleLinkedList.addOrderly(one);
         singleLinkedList.show();
+        Node twoTwo = new Node(2, "小猪", "小阿猪");
+        singleLinkedList.update(twoTwo);
+        singleLinkedList.show();
+        singleLinkedList.delete(twoTwo);
+        Node twoD = new Node(7, "小猪", "小阿猪");
+        singleLinkedList.delete(twoD);
+        singleLinkedList.show();
     }
 }
 
@@ -81,6 +88,56 @@ class SingleLinkedList {
     }
 
     /**
+     * 修改
+     *
+     * @param node
+     */
+    public void update(Node node) {
+        Node temp = head.next;
+        boolean flag = false;
+        while (true) {
+            if (temp == null) {
+                System.out.println("链表为空，无法修改");
+                break;
+            }
+            if (temp.num == node.num) {
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if (flag) {
+            temp.name = node.name;
+            temp.nickName = node.nickName;
+        } else {
+            System.out.printf("未找到编号 %d 的节点！", node.num);
+        }
+    }
+
+    /**
+     * 删除节点
+     */
+    public void delete(Node node) {
+        Node temp = head;
+        boolean flag = false;
+        while (true) {
+            if (temp.next == null) {
+                break;
+            }
+            if (temp.next.num == node.num) {
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if (flag) {
+            temp.next = temp.next.next;
+        } else {
+            System.out.printf("未找到编号 %d 的节点", node.num);
+        }
+    }
+
+    /**
      * 遍历
      */
     public void show() {
@@ -110,7 +167,7 @@ class Node {
     public int num;
     public String name;
 
-    private String nickName;
+    public String nickName;
 
     public Node next;
 
