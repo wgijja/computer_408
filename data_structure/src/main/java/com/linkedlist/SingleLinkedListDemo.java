@@ -26,14 +26,24 @@ public class SingleLinkedListDemo {
         Node twoTwo = new Node(2, "小猪", "小阿猪");
         singleLinkedList.update(twoTwo);
         singleLinkedList.show();
-        singleLinkedList.delete(twoTwo);
+        //singleLinkedList.delete(twoTwo);
         Node twoD = new Node(7, "小猪", "小阿猪");
-        singleLinkedList.delete(twoD);
+        //singleLinkedList.delete(twoD);
+        singleLinkedList.show();
+        System.out.println("链表的有效节点个数为：" + singleLinkedList.getLength(singleLinkedList.getHead()));
+        int index = 3;
+        System.out.println("倒数第" + index + "个节点为：" + singleLinkedList.getLastIndexOfNode(singleLinkedList.getHead(), index));
+        singleLinkedList.trans(singleLinkedList.getHead());
+        System.out.println("翻转之后的链表为：");
         singleLinkedList.show();
     }
 }
 
 class SingleLinkedList {
+
+    public Node getHead() {
+        return head;
+    }
 
     //初始化一个头节点
     private Node head = new Node(0, "", "");
@@ -133,7 +143,7 @@ class SingleLinkedList {
         if (flag) {
             temp.next = temp.next.next;
         } else {
-            System.out.printf("未找到编号 %d 的节点", node.num);
+            System.out.printf("未找到编号 %d 的节点\n", node.num);
         }
     }
 
@@ -153,6 +163,76 @@ class SingleLinkedList {
             }
         }
     }
+
+    /**
+     * 获取单链表有效节点的个数
+     *
+     * @return
+     */
+    public int getLength(Node head) {
+        int size = 0;
+        Node temp = head;
+        while (true) {
+            if (temp.next == null) {
+                break;
+            } else {
+                size++;
+            }
+            temp = temp.next;
+        }
+        return size;
+    }
+
+    /**
+     * 获取单链表倒数第n个节点
+     *
+     * @return
+     */
+    public Node getLastIndexOfNode(Node head, int index) {
+        //先判断链表是否有值
+        if (head.next == null) {
+            return null;
+        }
+        int size = getLength(head);
+        Node temp = head.next;
+        for (int i = 0; i < size - index; i++) {
+            temp = temp.next;
+        }
+        if (size == 0 || index > size) {
+            return null;
+        }
+        return temp;
+    }
+
+    /**
+     * 链表的反转
+     *
+     * @return
+     */
+    public void trans(Node head) {
+        //如果链表为空，或者链表只有一个节点则无需反转
+        if (head.next == null || head.next.next == null) {
+            return;
+        }
+        //定义一个临时的头节点
+        Node tempHead = new Node(0, "", "");
+        //辅助变量帮助遍历链表
+        Node tempNode = head.next;
+        //当前节点的下一个节点
+        Node currNext;
+        while (true) {
+            if (tempNode == null) {
+                break;
+            }
+            //先暂时保存当前节点的下一个节点
+            currNext = tempNode.next;
+            tempNode.next = tempHead.next;
+            tempHead.next = tempNode;
+            tempNode = currNext;
+        }
+        head.next = tempHead.next;
+    }
+
 
     @Override
     public String toString() {
