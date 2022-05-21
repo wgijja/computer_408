@@ -1,5 +1,7 @@
 package com.linkedlist;
 
+import java.util.Stack;
+
 /**
  * @author fjh
  * @date 2022/5/17 0:11
@@ -33,10 +35,13 @@ public class SingleLinkedListDemo {
         System.out.println("链表的有效节点个数为：" + singleLinkedList.getLength(singleLinkedList.getHead()));
         int index = 3;
         System.out.println("倒数第" + index + "个节点为：" + singleLinkedList.getLastIndexOfNode(singleLinkedList.getHead(), index));
-        singleLinkedList.trans(singleLinkedList.getHead());
-        System.out.println("翻转之后的链表为：");
-        singleLinkedList.show();
+        //singleLinkedList.trans(singleLinkedList.getHead());
+        //System.out.println("翻转之后的链表为：");
+        //singleLinkedList.show();
+        //从头到尾打印链表
+        singleLinkedList.reversePrint(singleLinkedList.getHead());
     }
+
 }
 
 class SingleLinkedList {
@@ -231,6 +236,26 @@ class SingleLinkedList {
             tempNode = currNext;
         }
         head.next = tempHead.next;
+    }
+
+    /**
+     * 从尾到头打印单链表---利用栈,如果用上面的反转会破坏单链表
+     *
+     * @param head
+     */
+    public void reversePrint(Node head) {
+        if (head.next == null) {
+            return;
+        }
+        Node curr = head.next;
+        Stack<Node> stack = new Stack<>();
+        while (curr != null) {
+            stack.push(curr);
+            curr = curr.next;
+        }
+        while (!stack.empty()) {
+            System.out.println(stack.pop());
+        }
     }
 
 
