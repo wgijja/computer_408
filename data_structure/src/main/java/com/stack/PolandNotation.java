@@ -14,7 +14,11 @@ public class PolandNotation {
         //定义逆波兰表达式( 30 + 4 ) * 5 - 6   ====》 30 4 + 5 * 6 -
         String suffixExpresion = "30 4 + 5 * 6 -";
         List<String> list = toList(suffixExpresion);
-        System.out.printf("%s = %d", suffixExpresion, calculate(list));
+        System.out.printf("%s = %d\n", suffixExpresion, calculate(list));
+
+        System.out.print("(30+4)*5-6 = ");
+        List<String> strings = stringToList("(30+4)*5-6");
+        System.out.println(strings);
     }
 
     /**
@@ -87,6 +91,48 @@ public class PolandNotation {
                 break;
             default:
                 break;
+        }
+        return res;
+    }
+
+    /**
+     * 将中缀表达式转成后缀表达式（逆波兰表达式）
+     *
+     * @param expression
+     * @return
+     */
+    public static String getPolandNotation(String expression) {
+
+        return null;
+    }
+
+
+    public static List<String> stringToList(String expression) {
+        int index = 0;
+        String abc = "";
+        char cur = ' ';
+        List<String> res = new ArrayList<>();
+        while (index < expression.length()) {
+            cur = expression.charAt(index);
+            if (cur == '(' || cur == ')') {
+                res.add("" + cur);
+            } else {
+                if (isOper(cur)) {
+                    res.add("" + cur);
+                } else {
+                    abc += cur;
+                    if (index == expression.length() - 1) {
+                        res.add(abc);
+                    } else {
+                        char next = expression.charAt(index + 1);
+                        if (isOper(next) || next == ')' || next == '(') {
+                            res.add(abc);
+                            abc = "";
+                        }
+                    }
+                }
+            }
+            index++;
         }
         return res;
     }
