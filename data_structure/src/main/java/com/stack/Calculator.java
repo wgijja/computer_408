@@ -6,7 +6,7 @@ package com.stack;
 public class Calculator {
 
     public static void main(String[] args) {
-        String expression = "3+2*5-6+4-10/5";
+        String expression = "300+2*50-6";
         //先创建两个栈，一个是数栈，一个符号栈
         ArrayStackTwo numStack = new ArrayStackTwo(10);
         ArrayStackTwo operStack = new ArrayStackTwo(10);
@@ -17,15 +17,27 @@ public class Calculator {
         int num2;
         int res;
         //用于保存每次扫描到的字符
-        char cur = ' ';
+        char cur=' ';
+        //用于保存多位数
+        String abc = "";
         //开始循环扫描表达式
         while (true) {
             if (index < expression.length()) {
                 cur = expression.charAt(index);
                 //判断是否是字符
                 if (!operStack.isOper(cur)) {
-                    //注意对照ASC码值，是需要这样减的
-                    numStack.push(cur - 48);
+                    abc += cur;
+                    //如果是数据，则需要判断是否是多位数，如果是最后一位，则直接入栈
+                    if (index == expression.length() - 1) {
+                        numStack.push(Integer.parseInt(abc));
+                    } else {
+                        char next = expression.charAt(index + 1);
+                        //如果后一位是符号，则入栈，如果不是符号，则直接下一次循环，因为下次循环一定会到再到这里来！perfect
+                        if (operStack.isOper(next)) {
+                            numStack.push(Integer.parseInt(abc));
+                            abc = "";
+                        }
+                    }
                 } else {
                     //判断当前符号栈是否为空
                     if (operStack.isEmpty()) {
