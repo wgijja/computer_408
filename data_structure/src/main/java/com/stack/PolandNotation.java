@@ -17,8 +17,11 @@ public class PolandNotation {
         System.out.printf("%s = %d\n", suffixExpresion, calculate(list));
 
         System.out.print("(30+4)*5-6 = ");
-        List<String> strings = stringToList("(30+4)*5-6");
-        System.out.println(strings);
+        String polandNotation = getPolandNotation("(30+4)*5-6");
+        System.out.println(polandNotation);
+        System.out.println("使用逆波兰表达式计算后缀表达式：");
+        List<String> strings = toListWithNoSpace(polandNotation);
+        System.out.printf("%s = %d\n", polandNotation, calculate(strings));
     }
 
     /**
@@ -102,11 +105,70 @@ public class PolandNotation {
      * @return
      */
     public static String getPolandNotation(String expression) {
+        //符号栈
+        Stack<String> symbolStack = new Stack<>();
+        //中间结果栈
+        Stack<String> middleStack = new Stack<>();
 
-        return null;
+        List<String> elements = stringToList(expression);
+        for (String element : elements) {
+            if ("(".equals(element)) {
+                //左括号,直接压入符号栈
+                symbolStack.push(element);
+            } else if (")".equals(element)) {
+                //右括号，依次弹出栈顶的符号压入中间结果栈
+                while (true) {
+                    if (symbolStack.isEmpty()) {
+                        break;
+                    }
+                    String topSymbol = symbolStack.pop();
+                    if ("(".equals(topSymbol)) {
+                        break;
+                    } else {
+                        middleStack.push(topSymbol);
+                    }
+                }
+            } else if (!isOper(element.charAt(0))) {
+                //数字
+                middleStack.push(element);
+            } else {
+                int curLevel = priority(element.charAt(0));
+                while (true) {
+                    //运算符
+                    if (symbolStack.empty() || "(".equals(symbolStack.peek()) || curLevel > priority(symbolStack.peek().charAt(0))) {
+                        symbolStack.push(element);
+                        break;
+                    }
+                    //如果没有栈顶的优先级高，则弹出并压入中间结果栈中
+                    middleStack.push(symbolStack.pop());
+                }
+            }
+        }
+        //将符号栈中的元素都压入中间结果栈
+        while (!symbolStack.empty()) {
+            middleStack.push(symbolStack.pop());
+        }
+        //依次弹出中间栈的元素，逆序即为中缀表达式的后缀表达式
+        Stack<String> temp = new Stack<>();
+        while (!middleStack.isEmpty()) {
+            temp.push(middleStack.pop());
+        }
+        StringBuilder builder = new StringBuilder();
+        while (!temp.isEmpty()) {
+            String pop = temp.pop();
+            if (!" ".equals(pop)) {
+                builder.append(pop).append(" ");
+            }
+        }
+        return builder.toString();
     }
 
-
+    /**
+     * 将中缀表达式拆分成List
+     *
+     * @param expression
+     * @return
+     */
     public static List<String> stringToList(String expression) {
         int index = 0;
         String abc = "";
@@ -136,4 +198,51 @@ public class PolandNotation {
         }
         return res;
     }
+
+    /**
+     * 返回操作符的优先级
+     *
+     * @param oper 运算符
+     * @return
+     */
+    public static int priority(int oper) {
+        if (oper == '*' || oper == '/') {
+            return 1;
+        } else if (oper == '+' || oper == '-') {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * 将后缀表达式转成List
+     *
+     * @param polandNotation
+     * @return
+     */
+    private static List<String> toListWithNoSpace(String polandNotation) {
+        List<String> list = new ArrayList<>();
+        String temp = "";
+        int index = 0;
+        while (true) {
+            if (index == polandNotation.length() - 1) {
+                break;
+            }
+            char cur = polandNotation.charAt(index);
+            if (' ' == cur) {
+                index++;
+                continue;
+            }
+            temp += cur;
+            char next = polandNotation.charAt(index + 1);
+            if (isOper(next) || ' ' == next) {
+                list.add(temp);
+                temp = "";
+            }
+            index++;
+        }
+        return list;
+    }
+
 }
