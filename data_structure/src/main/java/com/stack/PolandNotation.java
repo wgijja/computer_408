@@ -107,7 +107,7 @@ public class PolandNotation {
     public static String getPolandNotation(String expression) {
         //符号栈
         Stack<String> symbolStack = new Stack<>();
-        //中间结果栈
+        //中间结果栈（其实这里可以直接用List，因为中间结果栈只有添加操作，没有Pop操作，且后面需要逆序输出）
         Stack<String> middleStack = new Stack<>();
 
         List<String> elements = stringToList(expression);
@@ -134,12 +134,12 @@ public class PolandNotation {
             } else {
                 int curLevel = priority(element.charAt(0));
                 while (true) {
-                    //运算符
+                    //运算符，如果符号栈为空，如果遇到左括号，如果当前符号的等级比栈顶元素高，则将当前符号压入符号栈，结束循环。
                     if (symbolStack.empty() || "(".equals(symbolStack.peek()) || curLevel > priority(symbolStack.peek().charAt(0))) {
                         symbolStack.push(element);
                         break;
                     }
-                    //如果没有栈顶的优先级高，则弹出并压入中间结果栈中
+                    //如果当前符号没有栈顶的符号的优先级高（当前符号<=栈顶符号），则从符号栈弹出一个符号并压入中间结果栈中
                     middleStack.push(symbolStack.pop());
                 }
             }
@@ -165,6 +165,8 @@ public class PolandNotation {
 
     /**
      * 将中缀表达式拆分成List
+     * <p>
+     * 这其中的判断是否是字符或数字的也可以直接用ASC码值来判断，0【48】----9【57】
      *
      * @param expression
      * @return
