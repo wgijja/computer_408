@@ -18,7 +18,7 @@ public class BubbleSort {
      */
     private static void bubbleSort(int[] arr) {
         int count = 0;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length - 1; i++) {
             count++;
             for (int j = 0; j < arr.length - 1; j++) {
                 int temp = arr[j];
@@ -29,6 +29,7 @@ public class BubbleSort {
                     arr[j + 1] = temp;
                 }
             }
+            System.out.println("第" + (i + 1) + "次循环后的数组" + Arrays.toString(arr));
         }
         System.out.printf("循环一共执行了%d次\n", count);
         System.out.println(Arrays.toString(arr));
@@ -41,9 +42,8 @@ public class BubbleSort {
      */
     private static void bubbleSortGood(int[] arr) {
         int count = 0;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length - 1; i++) {
             boolean change = false;
-            count++;
             for (int j = 0; j < arr.length - 1; j++) {
                 int temp = arr[j];
                 int pre = arr[j];
@@ -57,6 +57,8 @@ public class BubbleSort {
             if (!change) {
                 break;
             }
+            count++;
+            System.out.println("第" + (i + 1) + "次循环后的数组" + Arrays.toString(arr));
         }
         System.out.printf("循环一共执行了%d次\n", count);
         System.out.println(Arrays.toString(arr));
