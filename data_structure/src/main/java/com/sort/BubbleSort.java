@@ -1,5 +1,7 @@
 package com.sort;
 
+import java.util.Arrays;
+
 public class BubbleSort {
 
     public static void main(String[] args) {
@@ -29,10 +31,7 @@ public class BubbleSort {
             }
         }
         System.out.printf("循环一共执行了%d次\n", count);
-        for (int i : arr) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
+        System.out.println(Arrays.toString(arr));
     }
 
     /**
@@ -60,9 +59,6 @@ public class BubbleSort {
             }
         }
         System.out.printf("循环一共执行了%d次\n", count);
-        for (int i : arr) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
+        System.out.println(Arrays.toString(arr));
     }
 }
