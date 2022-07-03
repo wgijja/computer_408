@@ -2,6 +2,9 @@ package com.sort;
 
 import java.util.Arrays;
 
+/**
+ * 冒泡排序 时间复杂度为 O(n^2)
+ */
 public class BubbleSort {
 
     public static void main(String[] args) {
