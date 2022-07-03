@@ -1,6 +1,9 @@
 package com.sort;
 
-import java.util.Arrays;
+
+import org.apache.commons.lang3.time.StopWatch;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 冒泡排序 时间复杂度为 O(n^2)
@@ -12,6 +15,16 @@ public class BubbleSort {
         bubbleSort(arr);
         int[] arr2 = new int[]{2, 4, 6, 1, 3, 5, 7, 8, 9};
         bubbleSortGood(arr2);
+
+        //测试一下性能，测试80000条数据执行时间 14S
+        int[] maxSize = new int[80000];
+        for (int i = 0; i < 80000; i++) {
+            maxSize[i] = (int) (Math.random() * 80000);
+        }
+        StopWatch stopWatch = StopWatch.createStarted();
+        bubbleSort(maxSize);
+        stopWatch.stop();
+        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.SECONDS) + "秒");
     }
 
     /**
@@ -32,10 +45,10 @@ public class BubbleSort {
                     arr[j + 1] = temp;
                 }
             }
-            System.out.println("第" + (i + 1) + "次循环后的数组" + Arrays.toString(arr));
+            //System.out.println("第" + (i + 1) + "次循环后的数组" + Arrays.toString(arr));
         }
-        System.out.printf("循环一共执行了%d次\n", count);
-        System.out.println(Arrays.toString(arr));
+        //System.out.printf("循环一共执行了%d次\n", count);
+        //System.out.println(Arrays.toString(arr));
     }
 
     /**
@@ -61,9 +74,9 @@ public class BubbleSort {
                 break;
             }
             count++;
-            System.out.println("第" + (i + 1) + "次循环后的数组" + Arrays.toString(arr));
+            //System.out.println("第" + (i + 1) + "次循环后的数组" + Arrays.toString(arr));
         }
-        System.out.printf("循环一共执行了%d次\n", count);
-        System.out.println(Arrays.toString(arr));
+        //System.out.printf("循环一共执行了%d次\n", count);
+        //System.out.println(Arrays.toString(arr));
     }
 }
