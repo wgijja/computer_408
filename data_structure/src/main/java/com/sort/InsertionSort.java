@@ -30,11 +30,12 @@ public class InsertionSort {
      * @param arr
      */
     private static void insertionSort(int[] arr) {
+        int insertValue, insertIndex;
         for (int i = 1; i < arr.length; i++) {
             //临时存储需要插入的元素
-            int insertValue = arr[i];
+            insertValue = arr[i];
             //记录需要插入的下标，因为总是与前面一个数相比，所以减1
-            int insertIndex = i - 1;
+            insertIndex = i - 1;
             //在下标不越界、且待插入元素小于前一个元素的情况下，循环
             while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
                 //将前一个元素后移，不用担心当前元素，因为已经存储在insertValue中
