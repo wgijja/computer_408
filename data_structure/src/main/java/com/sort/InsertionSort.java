@@ -12,7 +12,7 @@ public class InsertionSort {
         insertionSort(arr);
         System.out.println(Arrays.toString(arr));
 
-        //测试一下性能，测试80000条数据执行时间 0S
+        //测试一下性能，测试80000条数据执行时间 730ms
         int[] maxSize = new int[80000];
         for (int i = 0; i < 80000; i++) {
             maxSize[i] = (int) (Math.random() * 80000);
@@ -21,7 +21,7 @@ public class InsertionSort {
         StopWatch stopWatch = StopWatch.createStarted();
         insertionSort(maxSize);
         stopWatch.stop();
-        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.SECONDS) + "秒");
+        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
     /**
