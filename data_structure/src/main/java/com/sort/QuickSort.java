@@ -1,6 +1,9 @@
 package com.sort;
 
+import org.apache.commons.lang3.time.StopWatch;
+
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class QuickSort {
 
@@ -8,6 +11,17 @@ public class QuickSort {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
         quickSort2(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
+
+        //测试一下性能，测试80000条数据执行时间 19ms
+        int[] maxSize = new int[80000];
+        for (int i = 0; i < 80000; i++) {
+            maxSize[i] = (int) (Math.random() * 80000);
+        }
+
+        StopWatch stopWatch = StopWatch.createStarted();
+        quickSort(maxSize, 0, maxSize.length - 1);
+        stopWatch.stop();
+        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
     /**
