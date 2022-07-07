@@ -6,7 +6,7 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        quickSort(arr, 0, arr.length - 1);
+        quickSort2(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
     }
 
@@ -61,6 +61,85 @@ public class QuickSort {
         //向右递归
         if (right > l) {
             quickSort(arr, l, right);
+        }
+    }
+
+    public static void quickSort2(int[] arr, int left, int right) {
+        int l = left;
+        int r = right;
+        int pivot = arr[(l + r) / 2];
+        int temp;
+        while (l < r) {
+            while (arr[l] < pivot) {
+                l++;
+            }
+            while (arr[r] > pivot) {
+                r--;
+            }
+            if (l >= r) {
+                break;
+            }
+            temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+
+            if (arr[l] == pivot) {
+                r--;
+            }
+            if (arr[r] == pivot) {
+                l++;
+            }
+        }
+        if (l == r) {
+            l++;
+            r--;
+        }
+        if (left < r) {
+            quickSort2(arr, left, r);
+        }
+        if (right > l) {
+            quickSort2(arr, l, right);
+        }
+    }
+
+    public static void quickSort3(int[] arr, int left, int right) {
+        int l = left;
+        int r = right;
+        int pivot = arr[(l + r) / 2];
+        int temp;
+        while (l < r) {
+            while (arr[l] < pivot) {
+                l++;
+            }
+            while (arr[r] > pivot) {
+                r--;
+            }
+            if (l >= r) {
+                break;
+            }
+            temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+
+            //交换过后需要判断有没有到中轴位置
+            if (arr[l] == pivot) {
+                r--;
+            }
+            if (arr[r] == pivot) {
+                l++;
+            }
+        }
+        //判断l和r是否相等，以免死循环
+        if (l == r) {
+            l++;
+            r--;
+        }
+        //再判断是否要继续递归
+        if (left < r) {
+            quickSort3(arr, left, r);
+        }
+        if (right > l) {
+            quickSort3(arr, l, right);
         }
     }
 }
