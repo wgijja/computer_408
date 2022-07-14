@@ -9,7 +9,6 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        quickSort2(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 19ms
@@ -78,7 +77,7 @@ public class QuickSort {
         }
     }
 
-    public static void quickSort2(int[] arr, int left, int right) {
+    private void quickSort2(int[] arr, int left, int right) {
         int l = left;
         int r = right;
         int pivot = arr[(l + r) / 2];
@@ -116,7 +115,7 @@ public class QuickSort {
         }
     }
 
-    public static void quickSort3(int[] arr, int left, int right) {
+    private void quickSort3(int[] arr, int left, int right) {
         int l = left;
         int r = right;
         int pivot = arr[(l + r) / 2];
@@ -154,6 +153,43 @@ public class QuickSort {
         }
         if (right > l) {
             quickSort3(arr, l, right);
+        }
+    }
+
+    private void practiceQuickTwo(int[] arr, int left, int right) {
+        int l = left;
+        int r = right;
+        int pivot = arr[(l + r) / 2];
+        while (l < r) {
+            while (arr[l] < pivot) {
+                l++;
+            }
+            while (arr[r] > pivot) {
+                r--;
+            }
+            if (l >= r) {
+                break;
+            }
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+
+            if (arr[l] == pivot) {
+                r--;
+            }
+            if (arr[r] == pivot) {
+                l++;
+            }
+        }
+        if (l == r) {
+            l++;
+            r--;
+        }
+        if (left < r) {
+            practiceQuickTwo(arr, left, r);
+        }
+        if (right > l) {
+            practiceQuickTwo(arr, l, right);
         }
     }
 }

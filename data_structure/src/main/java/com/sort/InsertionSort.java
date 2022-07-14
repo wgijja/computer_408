@@ -46,4 +46,34 @@ public class InsertionSort {
             arr[insertIndex + 1] = insertValue;
         }
     }
+
+    private void practice(int[] arr) {
+        //将欲排序的元素分成两组，然后从后一组拿元素在前一组中找到位置并插入
+        int insertValue, insertIndex;
+        for (int i = 1; i < arr.length; i++) {
+            //存储需要插入的元素
+            insertValue = arr[i];
+            insertIndex = i - 1;
+            //在下标不越界，且要插入的元素比前一个元素要小的时候循环
+            while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
+                arr[insertIndex + 1] = arr[insertIndex];
+                insertIndex--;
+            }
+            //循环结束后，将insertValue赋值给insertIndex+1的位置上
+            arr[insertIndex + 1] = insertValue;
+        }
+    }
+
+    private void practiceTwo(int[] arr) {
+        int insertValue, insertIndex;
+        for (int i = 1; i < arr.length; i++) {
+            insertValue = arr[i];
+            insertIndex = i - 1;
+            while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
+                arr[insertIndex + 1] = arr[insertIndex];
+                insertIndex--;
+            }
+            arr[insertIndex + 1] = insertValue;
+        }
+    }
 }

@@ -10,7 +10,6 @@ public class ShellSort {
     public static void main(String[] args) {
 
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        shellSort2(arr);
         System.out.println(Arrays.toString(arr));
 
 
@@ -57,21 +56,6 @@ public class ShellSort {
         }
     }
 
-    public static void shellSort2(int[] arr) {
-        int temp;
-        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
-            for (int i = gap; i < arr.length; i++) {
-                for (int j = i - gap; j >= 0; j -= gap) {
-                    if (arr[j] > arr[j + gap]) {
-                        temp = arr[j];
-                        arr[j] = arr[j + gap];
-                        arr[j + gap] = temp;
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * 希尔排序（移位法）
      *
@@ -93,7 +77,22 @@ public class ShellSort {
         }
     }
 
-    public static void shellSortGood2(int[] arr) {
+    private void shellSort2(int[] arr) {
+        int temp;
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                for (int j = i - gap; j >= 0; j -= gap) {
+                    if (arr[j] > arr[j + gap]) {
+                        temp = arr[j];
+                        arr[j] = arr[j + gap];
+                        arr[j + gap] = temp;
+                    }
+                }
+            }
+        }
+    }
+
+    private void shellSortGood2(int[] arr) {
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {
             for (int i = gap; i < arr.length; i++) {
                 int j = i;
@@ -108,4 +107,36 @@ public class ShellSort {
             }
         }
     }
+
+    private void practiceShellOne(int[] arr) {
+        //gap就是步长
+        int temp;
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                for (int j = i - gap; j >= 0; j -= gap) {
+                    if (arr[j] > arr[j + gap]) {
+                        temp = arr[j];
+                        arr[j] = arr[j + gap];
+                        arr[j + gap] = temp;
+                    }
+                }
+            }
+        }
+    }
+
+    private void practiceShellGood2(int[] arr) {
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                //使用插入排序
+                int insertIndex = i;
+                int insertValue = arr[i];
+                while (insertIndex - gap >= 0 && insertValue < arr[insertIndex - gap]) {
+                    arr[insertIndex] = arr[insertIndex - gap];
+                    insertIndex -= gap;
+                }
+                arr[insertIndex] = insertValue;
+            }
+        }
+    }
+
 }
