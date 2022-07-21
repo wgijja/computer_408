@@ -9,18 +9,18 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
+        praQuick(arr,0,arr.length-1);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 19ms
-        int[] maxSize = new int[80000];
-        for (int i = 0; i < 80000; i++) {
-            maxSize[i] = (int) (Math.random() * 80000);
-        }
-
-        StopWatch stopWatch = StopWatch.createStarted();
-        quickSort(maxSize, 0, maxSize.length - 1);
-        stopWatch.stop();
-        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
+        //int[] maxSize = new int[80000];
+        //for (int i = 0; i < 80000; i++) {
+        //    maxSize[i] = (int) (Math.random() * 80000);
+        //}
+        //StopWatch stopWatch = StopWatch.createStarted();
+        //quickSort(maxSize, 0, maxSize.length - 1);
+        //stopWatch.stop();
+        //System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
     /**
@@ -190,6 +190,44 @@ public class QuickSort {
         }
         if (right > l) {
             practiceQuickTwo(arr, l, right);
+        }
+    }
+
+
+    private static void praQuick(int[] arr, int left, int right) {
+        int l = left;
+        int r = right;
+        int pivot = arr[(l + r)/2];
+        while (l < r) {
+            //找比中值小的
+            while (arr[l] < pivot) {
+                l++;
+            }
+            while (arr[r] > pivot) {
+                r--;
+            }
+            if (l >= r) {
+                break;
+            }
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+            if (arr[l] == pivot) {
+                r--;
+            }
+            if (arr[r] == pivot) {
+                l++;
+            }
+        }
+        if (l == r) {
+            l++;
+            r--;
+        }
+        if (left < r) {
+            praQuick(arr, left, r);
+        }
+        if ((l < right)) {
+            praQuick(arr, l, right);
         }
     }
 }
