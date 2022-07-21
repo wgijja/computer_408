@@ -1,6 +1,9 @@
 package com.sort;
 
+import org.apache.commons.lang3.time.StopWatch;
+
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 归并排序
@@ -11,8 +14,18 @@ public class MergeSort {
         int[] arr = new int[]{8, 4, 5, 7, 1, 3, 6, 2};
         //归并排序需要额外的空间
         int[] temp = new int[arr.length];
-        mergeSort(arr, 0, arr.length - 1, temp);
+        mergeSortPractice(arr, 0, arr.length - 1, temp);
         System.out.println(Arrays.toString(arr));
+
+        int[] maxSize = new int[80000000];
+        for (int i = 0; i < 80000000; i++) {
+            maxSize[i] = (int) (Math.random() * 80000000);
+        }
+
+        StopWatch stopWatch = StopWatch.createStarted();
+        mergeSortPractice(maxSize, 0, arr.length - 1, temp);
+        stopWatch.stop();
+        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MICROSECONDS) + "ms");
     }
 
 
@@ -85,6 +98,53 @@ public class MergeSort {
             tempLeft++;
             t++;
         }
+    }
+
+    private static void mergeSortPractice(int[] arr, int left, int right, int[] temp) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergeSortPractice(arr, left, mid, temp);
+            mergeSortPractice(arr, mid + 1, right, temp);
+            mergePractice(arr, left, mid, right, temp);
+        }
+    }
+
+    private static void mergePractice(int[] arr, int left, int mid, int right, int[] temp) {
+        int i = left;
+        int j = mid + 1;
+        int t = 0;
+        while (i <= mid && j <= right) {
+            if (arr[i] < arr[j]) {
+                temp[t] = arr[i];
+                i++;
+            } else {
+                temp[t] = arr[j];
+                j++;
+            }
+            t++;
+        }
+        //把剩下的转到中转数组中
+        while (i <= mid) {
+            temp[t] = arr[i];
+            i++;
+            t++;
+        }
+        while (j <= right) {
+            temp[t] = arr[j];
+            j++;
+            t++;
+        }
+
+        //把数据从temp拷贝到原数组
+        int tempLeft = left;
+        t = 0;
+        while (tempLeft <= right) {
+            arr[tempLeft] = temp[t];
+            tempLeft++;
+            t++;
+        }
+
+
     }
 
 

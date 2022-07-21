@@ -9,19 +9,18 @@ public class InsertionSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        insertionSort(arr);
+        pra(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 730ms
-        int[] maxSize = new int[80000];
-        for (int i = 0; i < 80000; i++) {
-            maxSize[i] = (int) (Math.random() * 80000);
-        }
-
-        StopWatch stopWatch = StopWatch.createStarted();
-        insertionSort(maxSize);
-        stopWatch.stop();
-        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
+        //int[] maxSize = new int[80000];
+        //for (int i = 0; i < 80000; i++) {
+        //    maxSize[i] = (int) (Math.random() * 80000);
+        //}
+        //StopWatch stopWatch = StopWatch.createStarted();
+        //insertionSort(maxSize);
+        //stopWatch.stop();
+        //System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
     /**
@@ -74,6 +73,18 @@ public class InsertionSort {
                 insertIndex--;
             }
             arr[insertIndex + 1] = insertValue;
+        }
+    }
+
+    private static void pra(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int insertIndex = i - 1;
+            int insertValue = arr[i];
+            while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
+                arr[insertIndex + 1] = arr[insertIndex];
+                insertIndex--;
+            }
+            arr[insertIndex+1] = insertValue;
         }
     }
 }
