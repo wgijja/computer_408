@@ -47,9 +47,9 @@ public class SelectSort {
     }
 
     private static void pra(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length - 1; i++) {
             int index = i;
-            for (int j = i + 1; j < arr.length-1; j++) {
+            for (int j = i + 1; j < arr.length; j++) {
                 if (arr[j] < arr[index]) {
                     index = j;
                 }
@@ -58,6 +58,22 @@ public class SelectSort {
                 int temp = arr[i];
                 arr[i] = arr[index];
                 arr[index] = temp;
+            }
+        }
+    }
+
+    private static void pra2(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int insertIndex = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[insertIndex]) {
+                    insertIndex = j;
+                }
+            }
+            if (insertIndex != i) {
+                int temp = arr[i];
+                arr[i] = arr[insertIndex];
+                arr[insertIndex] = temp;
             }
         }
     }

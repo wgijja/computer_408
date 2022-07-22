@@ -1,15 +1,15 @@
 package com.sort;
 
-import org.apache.commons.lang3.time.StopWatch;
-
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * 思想是：把数组分成一个有序列表和一个无序列表，将无序列表中的值插入到有序列表中
+ */
 public class InsertionSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        pra(arr);
+        pra2(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 730ms
@@ -81,6 +81,18 @@ public class InsertionSort {
             int insertIndex = i - 1;
             int insertValue = arr[i];
             while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
+                arr[insertIndex + 1] = arr[insertIndex];
+                insertIndex--;
+            }
+            arr[insertIndex + 1] = insertValue;
+        }
+    }
+
+    private static void pra2(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            int insertValue = arr[i];
+            int insertIndex = i - 1;
+            while (insertIndex >= 0 && arr[insertIndex] > insertValue) {
                 arr[insertIndex + 1] = arr[insertIndex];
                 insertIndex--;
             }

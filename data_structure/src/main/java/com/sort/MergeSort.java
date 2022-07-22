@@ -6,7 +6,8 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 归并排序
+ * 归并排序 思想是分治，分成两边都是有序序列的数据，再从两边比较放入到中转数组中，最后拷贝回原数组
+ * 左边数组索引，右边数组索引，中转数组索引
  */
 public class MergeSort {
 
@@ -66,7 +67,6 @@ public class MergeSort {
         int j = mid + 1;
         //中转数组的当前需要插入位置下标
         int t = 0;
-
         //第一步，把左右两边有序的数据填充到中转数组中
         while (i <= mid && j <= right) {
             if (arr[i] <= arr[j]) {
