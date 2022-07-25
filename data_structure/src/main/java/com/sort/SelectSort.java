@@ -1,10 +1,12 @@
 package com.sort;
 
-import org.apache.commons.lang3.time.StopWatch;
-
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * 选择排序，思想是：找到位置再交换
+ *
+ * @author fjh
+ */
 public class SelectSort {
 
     public static void main(String[] args) {
@@ -83,12 +85,12 @@ public class SelectSort {
             int changeIndex = i;
             for (int j = i; j < arr.length; j++) {
                 if (arr[changeIndex] > arr[j]) {
-                    changeIndex = j ;
+                    changeIndex = j;
                 }
             }
-            if (changeIndex != i){
+            if (changeIndex != i) {
                 int temp = arr[i];
-                arr[i]= arr[changeIndex];
+                arr[i] = arr[changeIndex];
                 arr[changeIndex] = temp;
             }
         }

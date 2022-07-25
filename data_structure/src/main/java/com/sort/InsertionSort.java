@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 /**
  * 思想是：把数组分成一个有序列表和一个无序列表，将无序列表中的值插入到有序列表中
+ *
+ * @author fjh
  */
 public class InsertionSort {
 
@@ -108,7 +110,7 @@ public class InsertionSort {
                 arr[insertIndex + 1] = arr[insertIndex];
                 insertIndex--;
             }
-            arr[insertIndex+1] = insertValue;
+            arr[insertIndex + 1] = insertValue;
         }
     }
 }

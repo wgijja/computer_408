@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 /**
  * 思想是：将数据分成左右两边，左边的都要小于中值，右边的都要大于中值
+ *
+ * @author fjh
  */
 public class QuickSort {
 

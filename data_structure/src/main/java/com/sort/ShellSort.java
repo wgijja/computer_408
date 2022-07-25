@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 思想是在插入排序的基础上以缩小增量方式排序
+ *
+ * @author fjh
  */
 public class ShellSort {
 

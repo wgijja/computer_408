@@ -5,6 +5,8 @@ import java.util.Arrays;
 /**
  * 归并排序 思想是分治，分成两边都是有序序列的数据，再从两边比较放入到中转数组中，最后拷贝回原数组
  * 左边数组索引，右边数组索引，中转数组索引
+ *
+ * @author fjh
  */
 public class MergeSort {
 
