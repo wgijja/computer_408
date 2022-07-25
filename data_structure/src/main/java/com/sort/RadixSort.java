@@ -1,6 +1,9 @@
 package com.sort;
 
+import org.apache.commons.lang3.time.StopWatch;
+
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 基数排序，桶排序的扩展，思想是：把数据按位数大小分到10个桶中进行排序
@@ -11,9 +14,21 @@ import java.util.Arrays;
 public class RadixSort {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        radixSort(arr);
+        int[] arr = new int[]{53, 3, 542, 748, 14, 214};
+        radixSortPractice(arr);
         System.out.println(Arrays.toString(arr));
+
+        //测试一下性能，测试80000条数据执行时间 9s
+        int[] maxSize = new int[8000000];
+        for (int i = 0; i < 8000000; i++) {
+            double random = Math.random();
+            double v = random * 8000000;
+            maxSize[i] = (int) (v);
+        }
+        StopWatch stopWatch = StopWatch.createStarted();
+        radixSort(maxSize);
+        stopWatch.stop();
+        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
     private static void radixSort(int[] arr) {
@@ -47,6 +62,35 @@ public class RadixSort {
                         index++;
                     }
                     bucketElementCounts[j] = 0;
+                }
+            }
+        }
+    }
+
+    private static void radixSortPractice(int[] arr) {
+        int maxValue = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > maxValue) {
+                maxValue = arr[i];
+            }
+        }
+        int maxLength = (maxValue + "").length();
+        int[][] bucket = new int[10][arr.length];
+        int[] bucketElementCount = new int[10];
+        for (int i = 0, j = 1; i < maxLength; i++, j *= 10) {
+            for (int value : arr) {
+                int num = value / j % 10;
+                bucket[num][bucketElementCount[num]] = value;
+                bucketElementCount[num]++;
+            }
+            int index = 0;
+            for (int k = 0; k < bucketElementCount.length; k++) {
+                if (bucketElementCount[k] != 0) {
+                    for (int l = 0; l < bucketElementCount[k]; l++) {
+                        arr[index] = bucket[k][l];
+                        index++;
+                    }
+                    bucketElementCount[k] = 0;
                 }
             }
         }

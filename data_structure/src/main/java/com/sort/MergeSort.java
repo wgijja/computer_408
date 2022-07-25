@@ -1,6 +1,9 @@
 package com.sort;
 
+import org.apache.commons.lang3.time.StopWatch;
+
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 归并排序 思想是分治，分成两边都是有序序列的数据，再从两边比较放入到中转数组中，最后拷贝回原数组
@@ -13,18 +16,18 @@ public class MergeSort {
     public static void main(String[] args) {
         int[] arr = new int[]{8, 4, 5, 7, 1, 3, 6, 2};
         //归并排序需要额外的空间
-        int[] temp = new int[arr.length];
-        mergeSortPra3(arr, 0, arr.length - 1, temp);
-        System.out.println(Arrays.toString(arr));
+        int[] temp = new int[8000000];
+        //mergeSortPra3(arr, 0, arr.length - 1, temp);
+        //System.out.println(Arrays.toString(arr));
 
-        //int[] maxSize = new int[80000000];
-        //for (int i = 0; i < 80000000; i++) {
-        //    maxSize[i] = (int) (Math.random() * 80000000);
-        //}
-        //StopWatch stopWatch = StopWatch.createStarted();
-        //mergeSortPractice(maxSize, 0, arr.length - 1, temp);
-        //stopWatch.stop();
-        //System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MICROSECONDS) + "ms");
+        int[] maxSize = new int[8000000];
+        for (int i = 0; i < 8000000; i++) {
+            maxSize[i] = (int) (Math.random() * 8000000);
+        }
+        StopWatch stopWatch = StopWatch.createStarted();
+        mergeSortPra3(maxSize, 0, maxSize.length - 1, temp);
+        stopWatch.stop();
+        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
 
