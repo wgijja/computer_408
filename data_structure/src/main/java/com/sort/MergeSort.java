@@ -1,9 +1,6 @@
 package com.sort;
 
-import org.apache.commons.lang3.time.StopWatch;
-
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 归并排序 思想是分治，分成两边都是有序序列的数据，再从两边比较放入到中转数组中，最后拷贝回原数组
@@ -15,7 +12,7 @@ public class MergeSort {
         int[] arr = new int[]{8, 4, 5, 7, 1, 3, 6, 2};
         //归并排序需要额外的空间
         int[] temp = new int[arr.length];
-        mergeSortPra2(arr, 0, arr.length - 1, temp);
+        mergeSortPra3(arr, 0, arr.length - 1, temp);
         System.out.println(Arrays.toString(arr));
 
         //int[] maxSize = new int[80000000];
@@ -182,6 +179,48 @@ public class MergeSort {
         //把中转数组中的数据拷贝回原数组
         t = 0;
         int tempLeft = left;
+        while (tempLeft <= right) {
+            arr[tempLeft] = temp[t];
+            tempLeft++;
+            t++;
+        }
+    }
+
+    private static void mergeSortPra3(int[] arr, int left, int right, int[] temp) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergeSortPra3(arr, left, mid, temp);
+            mergeSortPra3(arr, mid + 1, right, temp);
+            mergePra3(arr, left, mid, right, temp);
+        }
+    }
+
+    private static void mergePra3(int[] arr, int left, int mid, int right, int[] temp) {
+        int i = left;
+        int j = mid + 1;
+        int t = 0;
+        while (i <= mid && j <= right) {
+            if (arr[i] < arr[j]) {
+                temp[t] = arr[i];
+                i++;
+            } else {
+                temp[t] = arr[j];
+                j++;
+            }
+            t++;
+        }
+        while (i <= mid) {
+            temp[t] = arr[i];
+            t++;
+            i++;
+        }
+        while (j <= right) {
+            temp[t] = arr[j];
+            t++;
+            j++;
+        }
+        int tempLeft = left;
+        t = 0;
         while (tempLeft <= right) {
             arr[tempLeft] = temp[t];
             tempLeft++;
