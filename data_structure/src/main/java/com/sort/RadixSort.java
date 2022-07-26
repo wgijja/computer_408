@@ -15,20 +15,20 @@ public class RadixSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{53, 3, 542, 748, 14, 214};
-        radixSortPractice(arr);
+        radixPra1(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 9s
-        int[] maxSize = new int[8000000];
-        for (int i = 0; i < 8000000; i++) {
-            double random = Math.random();
-            double v = random * 8000000;
-            maxSize[i] = (int) (v);
-        }
-        StopWatch stopWatch = StopWatch.createStarted();
-        radixSort(maxSize);
-        stopWatch.stop();
-        System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
+        //int[] maxSize = new int[8000000];
+        //for (int i = 0; i < 8000000; i++) {
+        //    double random = Math.random();
+        //    double v = random * 8000000;
+        //    maxSize[i] = (int) (v);
+        //}
+        //StopWatch stopWatch = StopWatch.createStarted();
+        //radixSort(maxSize);
+        //stopWatch.stop();
+        //System.out.println("执行花费了：" + stopWatch.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
     private static void radixSort(int[] arr) {
@@ -91,6 +91,38 @@ public class RadixSort {
                         index++;
                     }
                     bucketElementCount[k] = 0;
+                }
+            }
+        }
+    }
+
+    private static void radixPra1(int[] arr) {
+        //找最大数
+        int maxValue = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > maxValue) {
+                maxValue = arr[i];
+            }
+        }
+        //位数
+        int maxLength = (maxValue + "").length();
+        int[][] bucket = new int[10][arr.length];
+        int[] everyElement = new int[10];
+        for (int i = 0, n = 1; i < maxLength; i++, n *= 10) {
+            //取出来放到桶中
+            for (int value : arr) {
+                int num = value / n % 10;
+                bucket[num][everyElement[num]] = value;
+                everyElement[num]++;
+            }
+            int index = 0;
+            for (int j = 0; j < everyElement.length; j++) {
+                if (everyElement[j] != 0) {
+                    for (int k = 0; k < everyElement[j]; k++) {
+                        arr[index] = bucket[j][k];
+                        index++;
+                    }
+                    everyElement[j] = 0;
                 }
             }
         }

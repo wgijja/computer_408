@@ -15,7 +15,7 @@ public class ShellSort {
     public static void main(String[] args) {
 
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        praG3(arr);
+        praG4(arr);
         System.out.println(Arrays.toString(arr));
 
 
@@ -31,14 +31,14 @@ public class ShellSort {
 
 
         //测试一下性能，测试80000条数据执行时间 9s
-        int[] maxSize2 = new int[8000000];
-        for (int i = 0; i < 8000000; i++) {
-            maxSize2[i] = (int) (Math.random() * 8000000);
-        }
-        StopWatch stopWatch2 = StopWatch.createStarted();
-        praG3(maxSize2);
-        stopWatch2.stop();
-        System.out.println("位移法执行花费了：" + stopWatch2.getTime(TimeUnit.MILLISECONDS) + "ms");
+        //int[] maxSize2 = new int[8000000];
+        //for (int i = 0; i < 8000000; i++) {
+        //    maxSize2[i] = (int) (Math.random() * 8000000);
+        //}
+        //StopWatch stopWatch2 = StopWatch.createStarted();
+        //praG3(maxSize2);
+        //stopWatch2.stop();
+        //System.out.println("位移法执行花费了：" + stopWatch2.getTime(TimeUnit.MILLISECONDS) + "ms");
     }
 
     /**
@@ -227,6 +227,34 @@ public class ShellSort {
                     changeIndex -= gap;
                 }
                 arr[changeIndex + gap] = changeValue;
+            }
+        }
+    }
+
+    private static void pra4(int[] arr) {
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                for (int j = i - gap; j >= 0; j -= gap) {
+                    if (arr[j] > arr[j + gap]) {
+                        int temp = arr[j];
+                        arr[j] = arr[j + gap];
+                        arr[j + gap] = temp;
+                    }
+                }
+            }
+        }
+    }
+
+    private static void praG4(int[] arr) {
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                int insertValue = arr[i];
+                int insertIndex = i - gap;
+                while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
+                    arr[insertIndex + gap] = arr[insertIndex];
+                    insertIndex -= gap;
+                }
+                arr[insertIndex + gap] = insertValue;
             }
         }
     }
