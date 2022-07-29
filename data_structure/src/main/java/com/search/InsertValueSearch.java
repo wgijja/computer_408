@@ -9,7 +9,7 @@ public class InsertValueSearch {
         for (int i = 0; i < 100; i++) {
             arr[i] = i + 1;
         }
-        int resIdx = insertValueSearch(arr, 0, arr.length - 1, 100);
+        int resIdx = insertValSearchPra(arr, 0, arr.length - 1, 100);
         System.out.println("查找的下标为：" + resIdx);
     }
 
@@ -25,6 +25,21 @@ public class InsertValueSearch {
             return insertValueSearch(arr, mid + 1, right, findValue);
         } else if (findValue < mid) {
             return insertValueSearch(arr, left, mid - 1, findValue);
+        } else {
+            return mid;
+        }
+    }
+
+    private static int insertValSearchPra(int[] arr, int left, int right, int findValue) {
+        if (left > right || findValue < arr[0] || findValue > arr[arr.length - 1]) {
+            return -1;
+        }
+        int mid = left + (right - left) * (findValue - arr[left]) / (arr[right] - arr[left]);
+        int midVal = arr[mid];
+        if (findValue > midVal) {
+            return insertValSearchPra(arr, mid + 1, right, findValue);
+        } else if (findValue < midVal) {
+            return insertValSearchPra(arr, left, mid - 1, findValue);
         } else {
             return mid;
         }

@@ -15,7 +15,7 @@ public class ShellSort {
     public static void main(String[] args) {
 
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        praG6(arr);
+        praG7(arr);
         System.out.println(Arrays.toString(arr));
 
 
@@ -311,6 +311,35 @@ public class ShellSort {
                     insertIdx -= gap;
                 }
                 arr[insertIdx + gap] = insertValue;
+            }
+        }
+    }
+
+    private static void pra7(int[] arr) {
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                for (int j = i - gap; j >= 0; j -= gap) {
+                    if (arr[j] > arr[j + gap]) {
+                        int temp = arr[j];
+                        arr[j] = arr[j + gap];
+                        arr[j + gap] = temp;
+                    }
+                }
+            }
+        }
+    }
+
+    private static void praG7(int[] arr) {
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                int changeVal = arr[i];
+                int changeIdx = i - gap;
+                while (changeIdx >= 0 && arr[changeIdx] > changeVal) {
+                    arr[changeIdx + gap] = arr[changeIdx];
+                    changeIdx -= gap;
+                }
+                arr[changeIdx + gap] = changeVal;
+
             }
         }
     }
