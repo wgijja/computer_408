@@ -1,8 +1,5 @@
 package com.search;
 
-/**
- * 线性查找
- */
 public class SeqSearch {
 
     public static void main(String[] args) {
@@ -11,6 +8,10 @@ public class SeqSearch {
         System.out.println("查找的元素下标为：" + res);
     }
 
+    /**
+     * 线性查找
+     * 逐一比对，对比是否是相同的值
+     */
     private static int seqSearch(int[] arr, int findValue) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == findValue) {
