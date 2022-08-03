@@ -243,4 +243,32 @@ public class RadixSort {
             }
         }
     }
+
+    private static void radixPra6(int[] arr) {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        int maxLength = (max + "").length();
+        int[][] bucket = new int[10][arr.length];
+        int[] counts = new int[10];
+        for (int i = 0, n = 1; i < maxLength; i++, n *= 10) {
+            for (int val : arr) {
+                int bit = val / n % 10;
+                bucket[bit][counts[bit]] = val;
+                counts[bit]++;
+            }
+            int idx = 0;
+            for (int b = 0; b < counts.length; b++) {
+                if (counts[b] != 0) {
+                    for (int num = 0; num < counts[b]; num++) {
+                        arr[idx] = bucket[b][num];
+                    }
+                    counts[b] = 0;
+                }
+            }
+        }
+    }
 }
