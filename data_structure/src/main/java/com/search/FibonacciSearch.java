@@ -74,8 +74,6 @@ public class FibonacciSearch {
                 }
             }
         }
-
-
         return -1;
     }
 }
