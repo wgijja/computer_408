@@ -11,7 +11,7 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        praQuick10(arr, 0, arr.length - 1);
+        praQuick11(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 19ms
@@ -557,5 +557,41 @@ public class QuickSort {
             praQuick10(arr, left, r);
         }
 
+    }
+
+    private static void praQuick11(int[] arr, int left, int right) {
+        int l = left;
+        int r = right;
+        int pivot = arr[(l + r) / 2];
+        while (l < r) {
+            while (arr[l] < pivot) {
+                l++;
+            }
+            while (arr[r] > pivot) {
+                r--;
+            }
+            if (l >= r) {
+                break;
+            }
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+            if (arr[l] == pivot) {
+                r--;
+            }
+            if (arr[r] == pivot) {
+                l++;
+            }
+        }
+        if (l == r) {
+            l++;
+            r--;
+        }
+        if (l < right) {
+            praQuick11(arr, l, right);
+        }
+        if (r > left) {
+            praQuick11(arr, left, r);
+        }
     }
 }
