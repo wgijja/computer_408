@@ -17,7 +17,7 @@ public class MergeSort {
         int[] arr = new int[]{8, 4, 5, 7, 1, 3, 6, 2};
         //归并排序需要额外的空间
         int[] temp = new int[8];
-        mergePra11(arr, 0, arr.length - 1, temp);
+        mergePra12(arr, 0, arr.length - 1, temp);
         System.out.println(Arrays.toString(arr));
 
         //int[] maxSize = new int[8000000];
@@ -567,6 +567,48 @@ public class MergeSort {
             arr[tempLeft] = temp[t];
             tempLeft++;
             t++;
+        }
+    }
+
+    private static void mergePra12(int[] arr, int left, int right, int[] temp) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            mergePra12(arr, left, mid, temp);
+            mergePra12(arr, mid + 1, right, temp);
+            mergeSortPra12(arr, left, mid, right, temp);
+        }
+    }
+
+    private static void mergeSortPra12(int[] arr, int left, int mid, int right, int[] temp) {
+        int i = left;
+        int j = mid + 1;
+        int t = 0;
+        while (i <= mid && j <= right) {
+            if (arr[j] > arr[i]) {
+                temp[t] = arr[i];
+                i++;
+            } else {
+                temp[t] = arr[j];
+                j++;
+            }
+            t++;
+        }
+        while (i <= mid) {
+            temp[t] = arr[i];
+            t++;
+            i++;
+        }
+        while (j <= right) {
+            temp[t] = arr[j];
+            t++;
+            j++;
+        }
+        int tempLeft = left;
+        t = 0;
+        while (tempLeft <= right) {
+            arr[tempLeft] = temp[t];
+            t++;
+            tempLeft++;
         }
     }
 }
