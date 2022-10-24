@@ -15,7 +15,7 @@ public class RadixSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{53, 3, 542, 748, 14, 214};
-        radixPra10(arr);
+        radixPra11(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 9s
@@ -361,6 +361,7 @@ public class RadixSort {
 
     /**
      * 注意先取模再取余，是从个位开始排序的
+     *
      * @param arr
      */
     private static void radixPra10(int[] arr) {
@@ -376,7 +377,37 @@ public class RadixSort {
 
         for (int i = 0, j = 1; i < maxLength; i++, j *= 10) {
             for (int val : arr) {
-                int bit = val  / j %10;
+                int bit = val / j % 10;
+                bucket[bit][counts[bit]] = val;
+                counts[bit]++;
+            }
+            int t = 0;
+            for (int a = 0; a < counts.length; a++) {
+                if (counts[a] != 0) {
+                    for (int b = 0; b < counts[a]; b++) {
+                        arr[t] = bucket[a][b];
+                        t++;
+                    }
+                    counts[a] = 0;
+                }
+            }
+        }
+    }
+
+    private static void radixPra11(int[] arr) {
+        int max = arr[0];
+        for (int i : arr) {
+            if (i > max) {
+                max = i;
+            }
+        }
+        int maxLength = (max + "").length();
+        int[][] bucket = new int[10][arr.length];
+        int[] counts = new int[10];
+
+        for (int i = 0, j = 1; i < maxLength; i++, j *= 10) {
+            for (int val : arr) {
+                int bit = val / j % 10;
                 bucket[bit][counts[bit]] = val;
                 counts[bit]++;
             }
