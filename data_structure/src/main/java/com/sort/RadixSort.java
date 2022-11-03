@@ -1,9 +1,6 @@
 package com.sort;
 
-import org.apache.commons.lang3.time.StopWatch;
-
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 基数排序，桶排序的扩展，思想是：把数据按位数大小分到10个桶中进行排序
@@ -15,7 +12,7 @@ public class RadixSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{53, 3, 542, 748, 14, 214};
-        radixPra11(arr);
+        radixPra12(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 9s
@@ -417,6 +414,35 @@ public class RadixSort {
                     for (int b = 0; b < counts[a]; b++) {
                         arr[t] = bucket[a][b];
                         t++;
+                    }
+                    counts[a] = 0;
+                }
+            }
+        }
+    }
+
+    private static void radixPra12(int[] arr) {
+        int max = arr[0];
+        for (int i : arr) {
+            if (i > max) {
+                max = i;
+            }
+        }
+        int maxLength = (max + "").length();
+        int[][] bucket = new int[10][arr.length];
+        int[] counts = new int[10];
+        for (int i = 0, j = 1; i < maxLength; i++, j *= 10) {
+            for (int value : arr) {
+                int bit = value / j % 10;
+                bucket[bit][counts[bit]] = value;
+                counts[bit]++;
+            }
+            int idx = 0;
+            for (int a = 0; a < counts.length; a++) {
+                if (counts[a] > 0) {
+                    for (int b = 0; b < counts[a]; b++) {
+                        arr[idx] = bucket[a][b];
+                        idx++;
                     }
                     counts[a] = 0;
                 }
