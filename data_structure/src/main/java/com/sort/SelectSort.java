@@ -11,7 +11,7 @@ public class SelectSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        pra16(arr);
+        pra17(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 3S
@@ -301,6 +301,23 @@ public class SelectSort {
                 arr[i] = arr[idx];
                 arr[idx] = temp;
             }
+        }
+    }
+
+    private static void pra17(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int idx = i;
+            for (int j = i; j < arr.length; j++) {
+                if (arr[j] < arr[idx]) {
+                    idx = j;
+                }
+            }
+            if (idx != i) {
+                int temp = arr[i];
+                arr[i] = arr[idx];
+                arr[idx] = temp;
+            }
+
         }
     }
 }

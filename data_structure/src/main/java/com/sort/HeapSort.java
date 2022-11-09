@@ -9,7 +9,7 @@ public class HeapSort {
 
     public static void main(String[] args) {
         int[] arr = {4, 6, 8, 5, 9};
-        heapSort4(arr);
+        heapSort7(arr);
         System.out.println("排序后的数组为：" + Arrays.toString(arr));
     }
 
@@ -133,6 +133,91 @@ public class HeapSort {
     }
 
     private static void toHeap4(int[] arr, int i, int length) {
+        int temp = arr[i];
+        for (int j = 2 * i + 1; j < length; j = 2 * i + 1) {
+            if (j + 1 < length && arr[j] < arr[j + 1]) {
+                j++;
+            }
+            if (temp < arr[j]) {
+                arr[i] = arr[j];
+                i = j;
+            } else {
+                break;
+            }
+        }
+        arr[i] = temp;
+    }
+
+    private static void heapSort5(int[] arr) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap5(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap5(arr, 0, i);
+        }
+
+    }
+
+    private static void toHeap5(int[] arr, int i, int length) {
+        int temp = arr[i];
+        for (int j = 2 * i + 1; j < length; j = 2 * i + 1) {
+            if (j + 1 < length && arr[j] < arr[j + 1]) {
+                j++;
+            }
+            if (temp < arr[j]) {
+                arr[i] = arr[j];
+                i = j;
+            } else {
+                break;
+            }
+        }
+        arr[i] = temp;
+    }
+
+    private static void heapSort6(int[] arr) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap6(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap6(arr, 0, i);
+        }
+    }
+
+    private static void toHeap6(int[] arr, int i, int length) {
+        int temp = arr[i];
+        for (int j = 2 * i + 1; j < length; j = 2 * i + 1) {
+            if (j + 1 < length && arr[j] < arr[j + 1]) {
+                j++;
+            }
+            if (temp < arr[j]) {
+                arr[i] = arr[j];
+                i = j;
+            } else {
+                break;
+            }
+        }
+        arr[i] = temp;
+    }
+
+    private static void heapSort7(int[] arr) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap7(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap7(arr, 0, i);
+        }
+    }
+
+    private static void toHeap7(int[] arr, int i, int length) {
         int temp = arr[i];
         for (int j = 2 * i + 1; j < length; j = 2 * i + 1) {
             if (j + 1 < length && arr[j] < arr[j + 1]) {
