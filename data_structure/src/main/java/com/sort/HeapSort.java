@@ -9,7 +9,7 @@ public class HeapSort {
 
     public static void main(String[] args) {
         int[] arr = {4, 6, 8, 5, 9};
-        heapSort7(arr);
+        heapSort8(arr);
         System.out.println("排序后的数组为：" + Arrays.toString(arr));
     }
 
@@ -231,5 +231,37 @@ public class HeapSort {
             }
         }
         arr[i] = temp;
+    }
+
+    private static void heapSort8(int[] arr) {
+        //先用一次循环将数组转成大顶堆
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap8(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i > 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap8(arr, 0, i);
+        }
+
+    }
+
+    private static void toHeap8(int[] arr, int idx, int length) {
+        //缓存非叶子节点值
+        int temp = arr[idx];
+        //循环比较大小
+        for (int i = 2 * idx + 1; i < length; i = 2 * idx + 1) {
+            if (i + 1 < length && arr[i + 1] > arr[i]) {
+                i++;
+            }
+            if (arr[i] > temp) {
+                arr[idx] = arr[i];
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        arr[idx] = temp;
     }
 }
