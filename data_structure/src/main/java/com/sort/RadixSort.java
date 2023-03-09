@@ -12,7 +12,7 @@ public class RadixSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{53, 3, 542, 748, 14, 214};
-        radixPra16(arr);
+        radixPra17(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 9s
@@ -557,14 +557,44 @@ public class RadixSort {
             //取出来
             int idx = 0;
             for (int a = 0; a < counts.length; a++) {
-                if (counts[a]>0){
+                if (counts[a] > 0) {
                     for (int b = 0; b < counts[a]; b++) {
                         arr[idx] = bucket[a][b];
                         idx++;
                     }
-                    counts[a]=0;
+                    counts[a] = 0;
                 }
             }
+        }
+    }
+
+    private static void radixPra17(int[] arr) {
+        int max = arr[0];
+        for (int i : arr) {
+            if (i > max) {
+                max = i;
+            }
+        }
+        int length = (max + "").length();
+        int[][] bucket = new int[10][arr.length];
+        int[] counts = new int[10];
+        for (int i = 0, j = 1; i < length; i++, j *= 10) {
+            for (int val : arr) {
+                int bit = val / j % 10;
+                bucket[bit][counts[bit]] = val;
+                counts[bit]++;
+            }
+            int idx = 0;
+            for (int a = 0; a < counts.length; a++) {
+                if (counts[a] > 0) {
+                    for (int b = 0; b < counts[a]; b++) {
+                        arr[idx] = bucket[a][b];
+                        idx++;
+                    }
+                    counts[a] = 0;
+                }
+            }
+
         }
     }
 

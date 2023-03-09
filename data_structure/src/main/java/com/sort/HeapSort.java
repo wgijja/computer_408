@@ -9,7 +9,7 @@ public class HeapSort {
 
     public static void main(String[] args) {
         int[] arr = {4, 6, 8, 5, 9};
-        heapSort12(arr);
+        heapSort14(arr);
         System.out.println("排序后的数组为：" + Arrays.toString(arr));
     }
 
@@ -395,5 +395,63 @@ public class HeapSort {
         }
         arr[idx] = val;
 
+    }
+
+    private static void heapSort13(int[] arr) {
+        //先进行一次数组转大顶堆
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap13(arr, i, arr.length);
+        }
+        //调换位置再循环
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap13(arr, 0, i);
+        }
+    }
+
+    private static void toHeap13(int[] arr, int idx, int length) {
+        int temp = arr[idx];
+        for (int i = 2 * idx + 1; i < length; i = 2 * idx + 1) {
+            if (i + 1 < length && arr[i] < arr[i + 1]) {
+                i++;
+            }
+            if (arr[i] > temp) {
+                arr[idx] = arr[i];
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        arr[idx] = temp;
+    }
+
+    private static void heapSort14(int[] arr) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap14(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap14(arr, 0, i);
+        }
+    }
+
+    private static void toHeap14(int[] arr, int idx, int length) {
+        int temp = arr[idx];
+        for (int i = 2 * idx + 1; i < length; i = 2 * idx + 1) {
+            if (i + 1 < length && arr[i] < arr[i + 1]) {
+                i++;
+            }
+            if (arr[i] > temp) {
+                arr[idx] = arr[i];
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        arr[idx] = temp;
     }
 }
