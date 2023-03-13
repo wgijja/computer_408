@@ -11,7 +11,7 @@ public class InsertionSort {
 
     public static void main(String[] args) {
         int[] arr = new int[]{2, 4, 6, 1, 3, 5, 7, 9, 8};
-        pra20(arr);
+        pra21(arr);
         System.out.println(Arrays.toString(arr));
 
         //测试一下性能，测试80000条数据执行时间 730ms
@@ -315,6 +315,18 @@ public class InsertionSort {
                 idx--;
             }
             arr[idx + 1] = val;
+        }
+    }
+
+    private static void pra21(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            for (int k = i - 1; k >= 0; k--) {
+                if (arr[k] > arr[k + 1]) {
+                    int temp = arr[k];
+                    arr[k] = arr[k + 1];
+                    arr[k + 1] = temp;
+                }
+            }
         }
     }
 }

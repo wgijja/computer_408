@@ -9,7 +9,7 @@ public class HeapSort {
 
     public static void main(String[] args) {
         int[] arr = {4, 6, 8, 5, 9};
-        heapSort14(arr);
+        heapSort16(arr);
         System.out.println("排序后的数组为：" + Arrays.toString(arr));
     }
 
@@ -446,6 +446,62 @@ public class HeapSort {
                 i++;
             }
             if (arr[i] > temp) {
+                arr[idx] = arr[i];
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        arr[idx] = temp;
+    }
+
+    private static void heapSort15(int[] arr) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap15(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap15(arr, 0, i);
+        }
+    }
+
+    private static void toHeap15(int[] arr, int idx, int length) {
+        int temp = arr[idx];
+        for (int i = 2 * idx + 1; i < length; i = 2 * idx + 1) {
+            if (i + 1 < length && arr[i] < arr[i + 1]) {
+                i++;
+            }
+            if (arr[idx] < arr[i]) {
+                arr[idx] = arr[i];
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        arr[idx] = temp;
+    }
+
+    private static void heapSort16(int[] arr) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap16(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            toHeap16(arr, 0, i);
+        }
+    }
+
+    private static void toHeap16(int[] arr, int idx, int length) {
+        int temp = arr[idx];
+        for (int i = 2 * idx + 1; i < length; i = 2 * idx + 1) {
+            if (i + 1 < length && arr[i] < arr[i + 1]) {
+                i++;
+            }
+            if (arr[i] > arr[idx]) {
                 arr[idx] = arr[i];
                 idx = i;
             } else {
