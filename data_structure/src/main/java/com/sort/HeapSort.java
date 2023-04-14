@@ -9,7 +9,7 @@ public class HeapSort {
 
     public static void main(String[] args) {
         int[] arr = {4, 6, 8, 5, 9};
-        heapSort16(arr);
+        heapSort17(arr);
         System.out.println("排序后的数组为：" + Arrays.toString(arr));
     }
 
@@ -502,6 +502,42 @@ public class HeapSort {
                 i++;
             }
             if (arr[i] > arr[idx]) {
+                arr[idx] = arr[i];
+                idx = i;
+            } else {
+                break;
+            }
+        }
+        arr[idx] = temp;
+    }
+
+    private static void heapSort17(int[] arr) {
+        //arr.length/2-1即为父节点的位置
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            toHeap17(arr, i, arr.length);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            //现在的数组中，第一位已是最大值，即要换位置
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            //每次将第一个元素作为堆顶元素
+            toHeap17(arr, 0, i);
+        }
+    }
+
+    private static void toHeap17(int[] arr, int idx, int length) {
+        //将当前`非`叶子节点缓存，因为要转换成大顶堆，所以可能会交换位置
+        int temp = arr[idx];
+        //当前节点的左节点为：2*n+1
+        for (int i = 2 * idx + 1; i < length; i = 2 * idx + 1) {
+            //判断是否有右子节点，如果有且比左子节点大，则将i指向右子节点
+            if (i + 1 < length && arr[i] < arr[i + 1]) {
+                i++;
+            }
+            //将左右子节点中的最大节点与父节点相比
+            if (arr[idx] < arr[i]) {
+                //如果子节点比父节点大，则将子节点的值赋给父节点，并把父节点的下标改成子节点的下标
                 arr[idx] = arr[i];
                 idx = i;
             } else {
